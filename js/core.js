@@ -54,6 +54,11 @@ export function photoUrl(s) {
   return id ? `https://drive.google.com/thumbnail?id=${id}&sz=w1000` : v;
 }
 
+/** Google держит опубликованную таблицу в кэше до 5 минут; метка, меняющаяся раз в минуту, даёт свежие данные. */
+export function freshUrl(url, now = Date.now()) {
+  return `${url}${url.includes('?') ? '&' : '?'}t=${Math.floor(now / 60000)}`;
+}
+
 function slug(s) {
   let h = 0;
   for (const ch of s) h = (h * 31 + ch.codePointAt(0)) >>> 0;

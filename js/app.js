@@ -4,7 +4,7 @@ import { LAYERS } from './layers.js';
 import { createExplode } from './explode.js';
 import {
   parseCSV, rowsToMenu, indexItems, formatPrice, sanitizeCart,
-  cartLines, cartTotal, cartCount, buildOrderText, waLink,
+  cartLines, cartTotal, cartCount, buildOrderText, waLink, freshUrl,
 } from './core.js';
 
 const $ = s => document.querySelector(s);
@@ -41,7 +41,7 @@ async function loadMenu() {
   try {
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), 8000);
-    const res = await fetch(CONFIG.sheetCsvUrl, { signal: ctl.signal, cache: 'no-store' });
+    const res = await fetch(freshUrl(CONFIG.sheetCsvUrl), { signal: ctl.signal, cache: 'no-store' });
     clearTimeout(timer);
     if (!res.ok) throw new Error(res.status);
     const fresh = rowsToMenu(parseCSV(await res.text()));
