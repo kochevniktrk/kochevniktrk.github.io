@@ -71,7 +71,7 @@ export function createExplode(section, stage) {
       stage.classList.add('is-swapping');
       if (stage.children.length) await new Promise(r => setTimeout(r, 160));
       stage.innerHTML = '<div class="stage__shadow"></div>' + layers.map((l, i) => ok[i] ? `
-        <div class="layer${l.bit ? ' layer--bit' : ''}" style="--w:${l.w}cqw;--y0:${l.y0}cqh;--y1:${l.y1}cqh;--x1:${l.x1 || 0}cqw;--r1:${l.r1 || 0}deg;--z:${l.z};--d:${(i * 0.37) % 1.6}s;--wob:${i % 2 ? -1.5 : 1.5}deg">
+        <div class="layer${l.bit ? ' layer--bit' : ''}${l.whole ? ' layer--whole' : ''}" style="--w:${l.w}cqw;--y0:${l.y0}cqh;--y1:${l.y1}cqh;--x1:${l.x1 || 0}cqw;--r1:${l.r1 || 0}deg;--z:${l.z};--d:${(i * 0.37) % 1.6}s;--wob:${i % 2 ? -1.5 : 1.5}deg">
           <img src="${l.src}" alt="" draggable="false">
         </div>` : '').join('');
       p = 0; apply();                       // новое блюдо появляется собранным и разлетается заново

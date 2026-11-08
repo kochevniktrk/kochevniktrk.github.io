@@ -109,6 +109,8 @@ svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 }
 .layer img { width: 100%; height: auto; } /* тень вшита в картинку (tools/build_assets.py) */
 .layer--bit { opacity: calc(var(--p) * 1.4 - .3); }
+/* целое блюдо поверх половинок: видно в собранном виде и тает в начале разлёта */
+.layer--whole { opacity: clamp(0, calc(1 - var(--p) * 5), 1); }
 .stage.is-open .layer img { animation: bob 3.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
 @keyframes bob { 50% { transform: translateY(-1.6cqh) rotate(var(--wob, 1.5deg)); } }
 

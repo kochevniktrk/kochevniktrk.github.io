@@ -160,20 +160,30 @@ export const LAYERS = {
   {
    "src": "img/doner/bottom.webp",
    "w": 45.17,
-   "y0": 10.14,
+   "y0": 18.72,
    "y1": 27.97,
    "x1": 4,
    "r1": 7,
-   "z": 2
+   "z": 2,
+   "half": true
   },
   {
    "src": "img/doner/top.webp",
    "w": 45.17,
-   "y0": -10.19,
+   "y0": -18.77,
    "y1": -27.91,
    "x1": -4,
    "r1": -10,
-   "z": 3
+   "z": 3,
+   "half": true
+  },
+  {
+   "src": "img/doner/whole.webp",
+   "w": 45.17,
+   "y0": 0,
+   "y1": 0,
+   "z": 15,
+   "whole": true
   },
   {
    "src": "img/doner/bit0.webp",
