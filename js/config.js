@@ -13,6 +13,6 @@ export const CONFIG = {
   // Блюда, которые разлетаются в блоке «Хит»: название как в таблице + набор слоёв из js/layers.js.
   heroDishes: [
     { dish: 'Бургер говядина', layers: 'burger', label: 'Бургер' },
-    { dish: 'Донер с курицей', layers: 'doner', label: 'Донер' },
+    { dish: 'Донер', layers: 'doner', label: 'Донер' },
   ],
 };
