@@ -1,11 +1,11 @@
-import { CONFIG } from './config.js';
-import { MENU_CSV } from './menu-data.js';
-import { LAYERS } from './layers.js';
-import { createExplode } from './explode.js';
+import { CONFIG } from './config.js?v=20261108221517';
+import { MENU_CSV } from './menu-data.js?v=20261108221517';
+import { LAYERS } from './layers.js?v=20261108221517';
+import { createExplode } from './explode.js?v=20261108221517';
 import {
   parseCSV, rowsToMenu, indexItems, formatPrice, sanitizeCart,
   cartLines, cartTotal, cartCount, buildOrderText, waLink, freshUrl,
-} from './core.js';
+} from './core.js?v=20261108221517';
 
 const $ = s => document.querySelector(s);
 const store = {
