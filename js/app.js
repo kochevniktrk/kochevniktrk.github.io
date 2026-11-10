@@ -1,11 +1,11 @@
-import { CONFIG } from './config.js?v=20261108221517';
-import { MENU_CSV } from './menu-data.js?v=20261108221517';
-import { LAYERS } from './layers.js?v=20261108221517';
-import { createExplode } from './explode.js?v=20261108221517';
+import { CONFIG } from './config.js?v=20261111004802';
+import { MENU_CSV } from './menu-data.js?v=20261111004802';
+import { LAYERS } from './layers.js?v=20261111004802';
+import { createExplode } from './explode.js?v=20261111004802';
 import {
   parseCSV, rowsToMenu, indexItems, formatPrice, sanitizeCart,
   cartLines, cartTotal, cartCount, buildOrderText, waLink, freshUrl,
-} from './core.js?v=20261108221517';
+} from './core.js?v=20261111004802';
 
 const $ = s => document.querySelector(s);
 const store = {
@@ -120,7 +120,6 @@ $('#tabs').addEventListener('click', e => {
 
 /* ---------- хит ---------- */
 let heroItem = null, heroIdx = 0, explode = null, heroList = [];
-const HOVER = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 function renderHero() {
   // только те блюда, что есть в меню (и не скрыты) и для которых есть слои
@@ -129,7 +128,7 @@ function renderHero() {
     .filter(h => h.item && LAYERS[h.layers]);
   if (!heroList.length) { $('#hero').hidden = true; return; }
   $('#hero').hidden = false;
-  explode ??= createExplode($('#hero'), $('#stage'));
+  explode ??= createExplode($('#stage'), setHint);
   $('#heroSwitch').hidden = heroList.length < 2;
   $('#heroSwitch').innerHTML = heroList.map((h, i) =>
     `<button role="tab" data-hero="${i}" aria-selected="${i === heroIdx}">${esc(h.label)}</button>`).join('');
@@ -145,8 +144,6 @@ async function selectHero(i) {
   $('#heroDesc').textContent = heroItem.desc;
   $('#stage').setAttribute('aria-label', `Показать «${heroItem.name}» по слоям`);
   refreshQty(heroItem.id);
-  const what = h.label.toLowerCase();
-  $('#heroHint').textContent = HOVER ? `Наведите на ${what} — он разлетится` : `Листайте вниз — ${what} разлетится. Нажмите — соберётся`;
   if (!await explode.show(LAYERS[h.layers]) && heroList.length === 1) $('#hero').hidden = true;
 }
 $('#heroSwitch').addEventListener('click', e => {
@@ -154,6 +151,16 @@ $('#heroSwitch').addEventListener('click', e => {
   if (b && +b.dataset.hero !== heroIdx) selectHero(+b.dataset.hero);
 });
 $('#heroAdd').addEventListener('click', () => heroItem && change(heroItem.id, 1));
+
+// кнопка под блюдом: «показать, из чего» / «собрать»; мигает, пока гость ни разу не нажал
+let heroTried = false;
+function setHint(open) {
+  const b = $('#heroHint');
+  if (open) heroTried = true;
+  b.textContent = open ? 'Собрать обратно' : 'Нажмите — покажем, из чего он';
+  b.classList.toggle('is-hint', !heroTried);
+}
+$('#heroHint').addEventListener('click', () => explode?.toggle());
 
 /* ---------- корзина ---------- */
 function change(id, d) {

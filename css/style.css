@@ -55,16 +55,14 @@ svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .pill:active { transform: scale(.97); }
 
 /* ---------- хит с разлётом ---------- */
-.hero { position: relative; height: 230vh; }
+.hero { position: relative; }
 .hero__sticky {
-  position: sticky; top: 0; height: 100vh; height: 100svh;
+  position: relative;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 16px 16px 24px; gap: 4px;
   background: radial-gradient(70% 50% at 50% 50%, #2c1c10 0%, var(--bg) 75%);
 }
-.hero--static { height: auto; }
-.hero--static .hero__sticky { position: static; height: auto; padding: 36px 16px; }
-.hero--static .stage { cursor: pointer; width: min(88vw, 440px); }
+.stage { cursor: pointer; -webkit-user-select: none; user-select: none; }
 .hero__head { text-align: center; }
 .hero__kicker {
   display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800;
@@ -82,8 +80,13 @@ svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .stage__shadow { will-change: transform, opacity; }
 .hero__foot { text-align: center; max-width: 420px; }
 .hero__desc { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
-.hero__hint { margin: 10px 0 0; font-size: 12px; color: var(--muted); opacity: .8; }
-.hero__hint::before { content: '↕ '; color: var(--accent); }
+.hero__toggle {
+  display: inline-flex; align-items: center; gap: 8px; margin: 12px auto 0; padding: 9px 16px; border-radius: 999px;
+  background: #24180f; border: 1px solid var(--line); color: var(--text); font-weight: 700; font-size: 13px;
+}
+.hero__toggle::before { content: '✦'; color: var(--accent); }
+.hero__toggle.is-hint { animation: nudge 1.6s ease-in-out infinite; border-color: var(--accent); }
+@keyframes nudge { 50% { box-shadow: 0 0 0 6px rgba(255,138,31,.18); } }
 
 .stage {
   --p: 0;
@@ -263,8 +266,7 @@ svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero { height: auto; }
-  .hero__sticky { position: static; height: auto; padding: 32px 16px; }
+  .hero__toggle.is-hint { animation: none; }
   .stage.is-open .layer img { animation: none; }
   .cartbar, .sheet__panel, .dish__panel { animation: none; }
 }
